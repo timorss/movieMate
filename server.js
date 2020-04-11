@@ -37,8 +37,12 @@ server.post('/',
 
 			if (message.text && message.nlp) {
 				// If a text message is received, use f.txt or f.img to send text/image back.
+				console.log('message.nlp.entities', message.nlp.entities);
+
 				tmdb(message.nlp.entities)
 					.then(res => {
+					
+
 						f.txt(sender, res.txt)
 						if (res.img) {
 							f.txt(sender, res.img)
@@ -48,7 +52,6 @@ server.post('/',
 						console.log(err);
 						f.txt(sender, 'My servers are acting up. Do check back later...')
 					})
-				console.log('entities', message.nlp.entities)
 			}
 		});
 		return next();

@@ -97,6 +97,7 @@ class FBeamer {
 				method: 'POST',
 				json: payload
 			}, (error, response, body) => {
+
 				if(!error && response.statusCode === 200) {
 					resolve({
 						messageId: body.message_id
@@ -110,6 +111,7 @@ class FBeamer {
 
 	// Send a text message
 	txt(id, text, messaging_type = 'RESPONSE') {
+		
 		let obj = {
 			messaging_type,
 			recipient: {

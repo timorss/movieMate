@@ -18,6 +18,13 @@ module.exports = (intent, data, director) => {
                 img: null
             }
             break;
+        case 'releasedYear':
+            str = `hey!!!!`
+            return {
+                txt: `${title} was released in ${releaseYear}`,
+                img: null
+            }
+            break;
 
         default:
             break;

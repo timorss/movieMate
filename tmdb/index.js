@@ -17,6 +17,7 @@ module.exports = nlpData => {
     console.log('TMDB', TMDB);
 
     const getMovieData = (movie, releaseYear = null) => {
+
         let qs = {
             api_key: TMDB,
             query: movie
@@ -50,7 +51,6 @@ module.exports = nlpData => {
 
                 if (!error && response.statusCode === 200) {
                     let result = JSON.parse(body).crew
-                    console.log('-------------------------result', result);
                     let directors = result.filter(item => item.job === 'Director').map(item => item.name).join(', ')
                     resolve(directors)
                 } else {
@@ -62,14 +62,20 @@ module.exports = nlpData => {
 
     return new Promise(async (resolve, reject) => {
         let intent = extractEntity(nlpData, 'intent');
+        if (intent === 'greeting') {
+            resolve({
+                txt: `Hey :)`,
+                img: null
+            })
+        }
         if (intent) {
             let movie = extractEntity(nlpData, 'movie')
             let releaseYear = extractEntity(nlpData, 'releaseYear')
+
             try {
                 let movieData = await getMovieData(movie, releaseYear);
                 let director = await getDirector(movieData.id);
                 let response = createResponse(intent, movieData, director)
-                // console.log('response---------------', response);
                 resolve(response)
             } catch (error) {
                 reject(error)
