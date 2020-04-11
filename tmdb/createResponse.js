@@ -8,7 +8,7 @@ module.exports = (intent, data, director) => {
             str = `${title} ${releaseYear}: ${overview}`.substring(0, 640)
             return {
                 txt: str,
-                img: `https://image.tmdb.org/t/p/w300/${poster_path}`
+                img: `https://image.tmdb.org/t/p/w300${poster_path}`
             }
             break;
         case 'director':
